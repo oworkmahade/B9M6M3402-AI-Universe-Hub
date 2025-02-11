@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Universe Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+
+    <main class="mx-4">
+        <!-- header section starts here  -->
+        <header class="">
+            <div class="ai-uni-hub-title text-3xl mx-96 my-10 text-center font-sans font-semibold ">
+                AI Universe Hub
+            </div>
+
+            <div class="flex justify-center items-center">
+                <button id="sort-btn" class="btn bg-[#EB5757] text-white text-lg">Sort By Date</button>
+            </div>
+        </header>
+        <!-- header section ends here  -->
+
+
+
+        <!-- display section starts here  -->
+
+        <!-- ai card container starts here  -->
+        <div id="ai-card-container" class="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
+
+        <!-- see more button starts here  -->
+
+        <div class="flex justify-center items-center mt-4">
+            <button id="seeMore-btn" onclick="seeMore()" class="btn bg-[#EB5757] text-white text-lg">See More</button>
+        </div>
+        <!-- see more button ends here  -->
+
+        <!-- ai card container ends here  -->
+
+        <!-- display section ends here  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+    <!-- script  -->
+    <script src="./js/aiUniverseHub.js"></script>
+</body>
+
+</html>
