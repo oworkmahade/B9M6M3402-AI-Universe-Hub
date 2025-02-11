@@ -42,6 +42,29 @@ const displayAI = (aiList, isSeeMore) => {
                         <button class="btn btn-primary">Buy Now</button>
                     </div>
                    </div>
+                           
+
+
+                   <div class="lower-container ">
+                    <hr class="border border-slate-200 w-4/5 mx-auto">
+                    <div class="text-arrow-container flex flex-row justify-between items-center w-4/5 mx-auto my-4">
+                      <div class="text flex flex-col">
+                    <h2 class="text-xl font-semibold">ChatGPT</h2>
+                    <p class="text-sm font-normal py-4">11/01/2022</p>
+                   </div>
+                   <div class="arrow">
+                    <button class="btn btn-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M4.5 12H19.5M19.5 12L12.75 5.25M19.5 12L12.75 18.75" stroke="#EB5757"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
     `;
     aiCardContainer.appendChild(aiCard);
   });
