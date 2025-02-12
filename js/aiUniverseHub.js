@@ -1,3 +1,5 @@
+// load ai dada from API
+
 const loadAI = async (isSeeMore) => {
   const res = await fetch("https://openapi.programming-hero.com/api/ai/tools");
   const data = await res.json();
@@ -5,6 +7,7 @@ const loadAI = async (isSeeMore) => {
   displayAI(aiList, isSeeMore);
 };
 
+// display AI data in the UI
 const displayAI = (aiList, isSeeMore) => {
   const aiCardContainer = document.getElementById("ai-card-container");
   aiCardContainer.innerHTML = "";
@@ -20,8 +23,6 @@ const displayAI = (aiList, isSeeMore) => {
   }
 
   aiList.forEach((aiElement) => {
-    console.log(aiElement);
-
     const aiCard = document.createElement("div");
     aiCard.classList = `card bg-base-100 w-96 shadow-xl`;
     aiCard.innerHTML = `
@@ -70,7 +71,9 @@ const displayAI = (aiList, isSeeMore) => {
 
                    </div>
                    <div class="arrow">
-                    <button class="btn btn-circle">
+                    <button id="seeDetails" onclick="seeDetails(${
+                      aiElement.id
+                    })" class="btn btn-circle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M4.5 12H19.5M19.5 12L12.75 5.25M19.5 12L12.75 18.75" stroke="#EB5757"
                                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -79,16 +82,30 @@ const displayAI = (aiList, isSeeMore) => {
                 </div>
             </div>
         </div>
-
-
-
     `;
     aiCardContainer.appendChild(aiCard);
   });
 };
 
+// activate see more button
 const seeMore = () => {
   loadAI(true);
 };
 
+// fetch details of AI data
+const seeDetails = async (id) => {
+  console.log(id);
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/ai/tool/${0}${id}`
+  );
+  const data = await res.json();
+  const aiDataDetails = data.data;
+  console.log(aiDataDetails);
+  seeDetailsModal(aiDataDetails);
+};
+
+// display data in modal
+const seeDetailsModal = (aiDataDetails) => {};
+
+// automatically call the function
 loadAI();
