@@ -23,6 +23,7 @@ const displayAI = (aiList, isSeeMore) => {
   }
 
   aiList.forEach((aiElement) => {
+    console.log(aiElement);
     const aiCard = document.createElement("div");
     aiCard.classList = `card bg-base-100 w-96 shadow-xl`;
     aiCard.innerHTML = `
@@ -100,12 +101,58 @@ const seeDetails = async (id) => {
   );
   const data = await res.json();
   const aiDataDetails = data.data;
-  console.log(aiDataDetails);
   seeDetailsModal(aiDataDetails);
 };
 
 // display data in modal
-const seeDetailsModal = (aiDataDetails) => {};
+const seeDetailsModal = (aiDataDetails) => {
+  console.log(aiDataDetails);
+  const modalContainer = document.getElementById("modal-container");
+  modalContainer.innerHTML = `
+                          <div class="text-section flex-1 p-4 border border-slate-100 rounded-xl bg-[#fef6f6]">
+                            <!-- upper -->
+                            <div class="upper mt-4">
+                                <h1 class="text-xl font-semibold">${aiDataDetails.description}</h1>
+                            </div>
+                            <!-- middle  -->
+                            <div class="middle flex flex-row gap-2 mt-4">
+                                <div class="month-basic  bg-slate-100 rounded-xl flex-1 text-center p-4 text-green-600">
+                                    $10/ month Basic
+                                </div>
+                                <div class="month-pro  bg-slate-100 rounded-xl flex-1 text-center p-4 text-orange-600">
+                                    $50/ month pro
+                                </div>
+                                <div
+                                    class="contact-us-ent  bg-slate-100 rounded-xl flex-1 text-center p-4 text-red-600">
+                                    contact us
+                                </div>
+                            </div>
+                            <!-- lower -->
+                            <div class="lower mt-4 flex flex-row justify-between gap-4 text-xl font-semibold">
+                                <div class="features">
+                                    <h2>Features</h2>
+                                </div>
+                                <div class="integrations">
+                                    <h2>Integrations</h2>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div
+                            class="image-section flex-1 p-4 border border-slate-100 rounded-xl flex flex-col justify-center items-center">
+                            <div class="image">
+                                <figure class="px-10 pt-10">
+                                    <img src="" alt="" class="rounded-xl" />
+                                </figure>
+                            </div>
+                            <div class="text">
+                                <h2>text1</h2>
+                                <h2>text2</h2>
+                            </div>
+                        </div>
+  `;
+  my_modal.showModal();
+};
 
 // automatically call the function
 loadAI();
