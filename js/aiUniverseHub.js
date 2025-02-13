@@ -96,8 +96,10 @@ const seeMore = () => {
 // fetch details of AI data
 const seeDetails = async (id) => {
   console.log(id);
+  const formattedId =
+    Number(id) < 10 ? id.toString().padStart(2, "0") : id.toString();
   const res = await fetch(
-    `https://openapi.programming-hero.com/api/ai/tool/${0}${id}`
+    `https://openapi.programming-hero.com/api/ai/tool/${formattedId}`
   );
   const data = await res.json();
   const aiDataDetails = data.data;
@@ -112,28 +114,44 @@ const seeDetailsModal = (aiDataDetails) => {
                           <div class="text-section flex-1 p-4 border border-slate-100 rounded-xl bg-[#fef6f6]">
                             <!-- upper -->
                             <div class="upper mt-4">
-                                <h1 class="text-xl font-semibold">${aiDataDetails.description}</h1>
+                                <h1 class="text-xl font-semibold">${
+                                  aiDataDetails?.description
+                                }</h1>
                             </div>
                             <!-- middle  -->
                             <div class="middle flex flex-row gap-2 mt-4">
-                                <div class="month-basic  bg-slate-100 rounded-xl flex-1 text-center p-4 text-green-600">
-                                    $10/ month Basic
+                                <div class="month-basic  bg-slate-100 rounded-xl flex-1 text-center p-4 text-green-600 flex justify-center items-center font-semibold">
+                                <h2>${aiDataDetails?.pricing[0].price}</h2>
+                        
+                                   
                                 </div>
-                                <div class="month-pro  bg-slate-100 rounded-xl flex-1 text-center p-4 text-orange-600">
-                                    $50/ month pro
+                                <div class="month-pro  bg-slate-100 rounded-xl flex-1 text-center p-4 text-orange-600 flex justify-center items-center font-semibold">
+                                     <h2>${aiDataDetails?.pricing[1].price}</h2>
                                 </div>
                                 <div
-                                    class="contact-us-ent  bg-slate-100 rounded-xl flex-1 text-center p-4 text-red-600">
-                                    contact us
+                                    class="contact-us-ent  bg-slate-100 rounded-xl flex-1 text-center p-4 text-red-600 flex justify-center items-center font-semibold">
+                                   <h2>${aiDataDetails?.pricing[2].price}</h2>
                                 </div>
                             </div>
                             <!-- lower -->
-                            <div class="lower mt-4 flex flex-row justify-between gap-4 text-xl font-semibold">
+                            <div class="lower mt-4 flex flex-row justify-between gap-4">
                                 <div class="features">
-                                    <h2>Features</h2>
+                        <h2 class="text-xl font-semibold mb-4">Features</h2>
                                 </div>
                                 <div class="integrations">
-                                    <h2>Integrations</h2>
+                                    <h2 class="text-xl font-semibold mb-4">Integrations</h2>
+                                         ${
+                                           aiDataDetails?.integrations
+                                             ? aiDataDetails.integrations
+                                                 .map(
+                                                   (integration, index) =>
+                                                     `${
+                                                       index + 1
+                                                     }. ${integration}`
+                                                 )
+                                                 .join("<br>")
+                                             : "Integrations not found"
+                                         } </h2>
                                 </div>
                             </div>
 
