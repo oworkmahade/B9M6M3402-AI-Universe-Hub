@@ -9,6 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/style.css">
 
+
 </head>
 
 <body>
@@ -21,7 +22,8 @@
             </div>
 
             <div class="flex justify-center items-center">
-                <button id="sort-btn" class="btn bg-[#EB5757] text-white text-lg">Sort By Date</button>
+                <button id="sort-btn" onclick="sort_card()" class="btn bg-[#EB5757] text-white text-lg">Sort By
+                    Date</button>
             </div>
         </header>
         <!-- header section ends here  -->
@@ -31,7 +33,7 @@
         <!-- display section starts here  -->
 
         <!-- ai card container starts here  -->
-        <div id="ai-card-container" class="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="ai-card-container" class="ai-card-container p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         </div>
 
         <!-- see more button starts here  -->
@@ -49,22 +51,23 @@
         <!-- modal  -->
         <!-- You can open the modal using ID.showModal() method -->
 
-
         <div>
             <dialog id="my_modal" class="modal">
-                <div class="modal-box w-[80vw] max-w-[900px] ">
+                <div class="modal-box w-[80vw] max-w-[900px]">
                     <form method="dialog">
-                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        <!-- Updated Close Button -->
+                        <button class="btn btn-sm btn-circle bg-[#EB5757] text-white absolute right-2 top-2"
+                            onclick="closeModal()">
+                            ✕
+                        </button>
                     </form>
-                    <!-- modal-container  -->
+                    <!-- Modal Content -->
                     <div id="modal-container" class="modal-content flex flex-row justify-between gap-4 p-10">
-
+                        <!-- Modal content goes here -->
                     </div>
-
                 </div>
             </dialog>
         </div>
-
 
 
 

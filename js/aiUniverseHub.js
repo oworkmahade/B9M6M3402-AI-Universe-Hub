@@ -1,12 +1,18 @@
 // load ai dada from API
 
 const loadAI = async (isSeeMore) => {
-  const res = await fetch("https://openapi.programming-hero.com/api/ai/tools");
-  const data = await res.json();
-  const aiList = data.data.tools;
-  displayAI(aiList, isSeeMore);
+  try {
+    const res = await fetch(
+      "https://openapi.programming-hero.com/api/ai/tools"
+    );
+    if (!res.ok) throw new Error("Failed to fetch data");
+    const data = await res.json();
+    const aiList = data.data.tools;
+    displayAI(aiList, isSeeMore);
+  } catch (error) {
+    console.error("Error loading AI data:", error);
+  }
 };
-
 // display AI data in the UI
 const displayAI = (aiList, isSeeMore) => {
   const aiCardContainer = document.getElementById("ai-card-container");
@@ -25,6 +31,7 @@ const displayAI = (aiList, isSeeMore) => {
   aiList.forEach((aiElement) => {
     console.log(aiElement);
     const aiCard = document.createElement("div");
+    aiCard.id = "aiCard";
     aiCard.classList = `card bg-base-100 w-96 shadow-xl`;
     aiCard.innerHTML = `
                     <figure class="px-10 pt-10">
@@ -60,6 +67,7 @@ const displayAI = (aiList, isSeeMore) => {
                     </div>
 
                     <div class="date">
+           
                     <p class="text-sm font-normal py-4">${
                       aiElement?.published_in
                         ? aiElement.published_in
@@ -111,7 +119,7 @@ const seeDetailsModal = (aiDataDetails) => {
   console.log(aiDataDetails);
   const modalContainer = document.getElementById("modal-container");
   modalContainer.innerHTML = `
-                          <div class="text-section flex-1 p-4 border border-slate-100 rounded-xl bg-[#fef6f6]">
+                          <div class="text-section flex-1 p-4 border border-red-600 rounded-xl bg-[#fef6f6]">
                             <!-- upper -->
                             <div class="upper mt-4">
                                 <h1 class="text-xl font-semibold">${
@@ -121,55 +129,133 @@ const seeDetailsModal = (aiDataDetails) => {
                             <!-- middle  -->
                             <div class="middle flex flex-row gap-2 mt-4">
                                 <div class="month-basic  bg-slate-100 rounded-xl flex-1 text-center p-4 text-green-600 flex justify-center items-center font-semibold">
-                                <h2>${aiDataDetails?.pricing[0].price}</h2>
+                                <h2>${
+                                  Array.isArray(aiDataDetails?.pricing) &&
+                                  aiDataDetails.pricing[0].price
+                                    ? aiDataDetails.pricing[0].price
+                                    : ""
+                                }</h2>
                         
-                                   
                                 </div>
                                 <div class="month-pro  bg-slate-100 rounded-xl flex-1 text-center p-4 text-orange-600 flex justify-center items-center font-semibold">
-                                     <h2>${aiDataDetails?.pricing[1].price}</h2>
+                     <h2>${
+                       Array.isArray(aiDataDetails?.pricing) &&
+                       aiDataDetails.pricing[1].price
+                         ? aiDataDetails.pricing[1].price
+                         : ""
+                     }</h2>
                                 </div>
                                 <div
                                     class="contact-us-ent  bg-slate-100 rounded-xl flex-1 text-center p-4 text-red-600 flex justify-center items-center font-semibold">
-                                   <h2>${aiDataDetails?.pricing[2].price}</h2>
-                                </div>
-                            </div>
-                            <!-- lower -->
-                            <div class="lower mt-4 flex flex-row justify-between gap-4">
-                                <div class="features">
-                        <h2 class="text-xl font-semibold mb-4">Features</h2>
-                                </div>
-                                <div class="integrations">
-                                    <h2 class="text-xl font-semibold mb-4">Integrations</h2>
-                                         ${
-                                           aiDataDetails?.integrations
-                                             ? aiDataDetails.integrations
-                                                 .map(
-                                                   (integration, index) =>
-                                                     `${
-                                                       index + 1
-                                                     }. ${integration}`
-                                                 )
-                                                 .join("<br>")
-                                             : "Integrations not found"
-                                         } </h2>
+                                <h2>${
+                                  Array.isArray(aiDataDetails?.pricing) &&
+                                  aiDataDetails.pricing[2].price
+                                    ? aiDataDetails.pricing[2].price
+                                    : ""
+                                }</h2>
                                 </div>
                             </div>
 
+
+                            <!-- lower -->
+                            <div class="lower mt-4 flex flex-row justify-between gap-4">
+
+
+                                <div class="features">
+                                <h2 class="text-xl font-semibold mb-4">Features</h2>
+                                   ${
+                                     aiDataDetails?.features
+                                       ? `<ul style="list-style-type:disc; padding-left: 20px;">
+                                      ${Object.values(aiDataDetails.features)
+                                        .map(
+                                          (feature) =>
+                                            `<li>${feature.feature_name}</li>`
+                                        )
+                                        .join("")}
+                                     </ul>`
+                                       : "Features not found"
+                                   }
+
+                                </div>
+
+                                
+
+                                <div class="integrations">
+                                    <h2 class="text-xl font-semibold mb-4">Integrations</h2>
+                                    ${
+                                      aiDataDetails?.integrations
+                                        ? `<ul style="list-style-type:disc; padding-left: 20px;">
+                                    ${aiDataDetails.integrations
+                                      .map(
+                                        (integration) => `<li>
+                                    ${integration}</li>`
+                                      )
+                                      .join("")}
+                                     </ul>`
+                                        : "Integrations not found"
+                                    }
+                                  </h2>
+                                </div>
+
+
+                            </div>
+
                         </div>
+
+
                         <div
                             class="image-section flex-1 p-4 border border-slate-100 rounded-xl flex flex-col justify-center items-center">
-                            <div class="image">
+                            <div class="image relative">
                                 <figure class="px-10 pt-10">
-                                    <img src="" alt="" class="rounded-xl" />
+                                    <img src="${
+                                      aiDataDetails?.image_link[0]
+                                        ? aiDataDetails.image_link[0]
+                                        : "Images Not Found"
+                                    }" alt="" class="rounded-xl" />
                                 </figure>
                             </div>
+
+
+
+
                             <div class="text">
-                                <h2>text1</h2>
-                                <h2>text2</h2>
-                            </div>
+
+                          ${
+                            Array.isArray(
+                              aiDataDetails?.input_output_examples
+                            ) && aiDataDetails.input_output_examples.length > 0
+                              ? `
+                          <h2 class="text-center text-2xl font-semibold mt-4">
+                          ${aiDataDetails.input_output_examples[0].input}
+                          </h2>
+                          <h2 class="text-center mt-4">
+                          ${aiDataDetails.input_output_examples[0].output}
+                          </h2>
+                              `
+                              : `<h2 class="text-center text-2xl font-semibold mt-4">No examples available</h2>`
+                          }                          
                         </div>
+                        </div>
+
   `;
   my_modal.showModal();
+};
+
+// Sort Cards by Date
+
+const sort_card = () => {
+  const cardContainer = document.getElementById("ai-card-container");
+  const cards = Array.from(cardContainer.querySelectorAll("#aiCard"));
+
+  const sortedCards = cards.sort((a, b) => {
+    const dateA = new Date(a.querySelector(".date p").textContent.trim());
+    const dateB = new Date(b.querySelector(".date p").textContent.trim());
+    return dateB - dateA; // Sort descending (newest first)
+  });
+
+  // Clear and re-append sorted cards
+  cardContainer.innerHTML = "";
+  sortedCards.forEach((card) => cardContainer.appendChild(card));
 };
 
 // automatically call the function
