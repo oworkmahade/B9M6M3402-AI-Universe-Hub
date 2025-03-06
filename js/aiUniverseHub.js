@@ -163,6 +163,8 @@ const seeDetailsModal = (aiDataDetails) => {
 
                                 <div class="features">
                                 <h2 class="text-xl font-semibold mb-4">Features</h2>
+                            <div class="features-list text-[#6c6c6c]">
+                      
                                    ${
                                      aiDataDetails?.features
                                        ? `<ul style="list-style-type:disc; padding-left: 20px;">
@@ -175,13 +177,14 @@ const seeDetailsModal = (aiDataDetails) => {
                                      </ul>`
                                        : "Features not found"
                                    }
-
+                                </div>
                                 </div>
 
                                 
 
                                 <div class="integrations">
                                     <h2 class="text-xl font-semibold mb-4">Integrations</h2>
+                                    <div class="integrations-list text-[#6c6c6c]">
                                     ${
                                       aiDataDetails?.integrations
                                         ? `<ul style="list-style-type:disc; padding-left: 20px;">
@@ -194,7 +197,7 @@ const seeDetailsModal = (aiDataDetails) => {
                                      </ul>`
                                         : "Integrations not found"
                                     }
-                                  </h2>
+                                  </div>
                                 </div>
 
 
@@ -205,16 +208,30 @@ const seeDetailsModal = (aiDataDetails) => {
 
                         <div
                             class="image-section flex-1 p-4 border border-slate-100 rounded-xl flex flex-col justify-center items-center">
+
+                            <div class="image-accuracy flex flex-col justify-center items-center ">
                             <div class="image relative">
-                                <figure class="px-10 pt-10 w-[400px] h-[300px] border-green-600 border-2 rounded-xl">
+                                <figure class="px-10  w-[400px] h-[300px]">
                                     <img src="${
                                       aiDataDetails?.image_link[0]
                                         ? aiDataDetails.image_link[0]
                                         : "Images Not Found"
                                     }" alt="" class="rounded-xl" />
                                 </figure>
+                            <div class="accuracy absolute right-12 top-2">
+                                <h2 class="text-sm font-semibold px-2 py-1 bg-red-600 rounded-md text-white"> 
+                                
+                                ${
+                                  aiDataDetails?.accuracy?.score
+                                    ? aiDataDetails.accuracy.score * 100
+                                    : "No accuracy found"
+                                } 
+                         
+                                </h2>
                             </div>
 
+                            </div>
+                        </div>            
 
 
 
@@ -229,11 +246,13 @@ const seeDetailsModal = (aiDataDetails) => {
                           ${aiDataDetails.input_output_examples[0].input}
                           </h2>
                           <h2 class="text-center mt-4">
+                          <div class="text-[#6c6c6c]">
                           ${aiDataDetails.input_output_examples[0].output}
                           </h2>
                               `
                               : `<h2 class="text-center text-2xl font-semibold mt-4">No examples available</h2>`
-                          }                          
+                          }  
+                              </div>                        
                         </div>
                         </div>
 
