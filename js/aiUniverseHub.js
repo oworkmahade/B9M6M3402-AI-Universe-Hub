@@ -223,9 +223,11 @@ const seeDetailsModal = (aiDataDetails) => {
                                 
                                 ${
                                   aiDataDetails?.accuracy?.score
-                                    ? aiDataDetails.accuracy.score * 100
-                                    : "No accuracy found"
+                                    ? aiDataDetails.accuracy.score * 100 +
+                                      "% accuracy"
+                                    : "No accuracy"
                                 } 
+    
                          
                                 </h2>
                             </div>
