@@ -206,7 +206,7 @@ const seeDetailsModal = (aiDataDetails) => {
                         <div
                             class="image-section flex-1 p-4 border border-slate-100 rounded-xl flex flex-col justify-center items-center">
                             <div class="image relative">
-                                <figure class="px-10 pt-10">
+                                <figure class="px-10 pt-10 w-[400px] h-[300px] border-green-600 border-2 rounded-xl">
                                     <img src="${
                                       aiDataDetails?.image_link[0]
                                         ? aiDataDetails.image_link[0]
